@@ -1,0 +1,39 @@
+{{#if details.traits.is_anonymous_proxy}}
+    <span class="integration-summary-tag critical-background critical-border" title="Anonymous Proxy">
+        <span class="acronym critical-bold">{{block.acronym}}</span> <span style="font-weight:normal"><i class="critical-bold fa fa-user-secret"></i></span>
+    </span>
+{{/if}}
+
+{{#if details.traits.is_satellite_provider}}
+    <span class="integration-summary-tag critical-background critical-border" title="Satellite Provider">
+        <span class="acronym critical-bold">{{block.acronym}}</span> <span style="font-weight:normal"><i class="critical-bold bts bt-rocket"></i></span>
+    </span>
+{{/if}}
+
+{{#if hasGeolocationData}}
+    <span class="integration-summary-tag integration-background-color integration-border-color">
+     <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+    <span class="integration-text-color">
+    {{#if details.city}}{{details.city.names.en}}{{/if}}{{#if (gt stateSummary.length 0)}}, {{stateSummary}}{{/if}}
+        {{countrySummary}}</span>
+  </span>
+{{/if}}
+
+{{#if (gt block.data.orgOrIsp.length 0)}}
+    <span class="integration-summary-tag integration-background-color integration-border-color">
+   <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+  <span class="integration-text-color">{{block.data.orgOrIsp}}</span>
+</span>
+{{/if}}
+
+{{#if (and maxmindMergeNetworks (gt block.ipAddresses.length 1))}}
+    <span class="label-notification integration-summary-tag integration-background-color integration-border-color">
+   <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
+  <span class="integration-text-color">
+    {{block.ipAddresses.length}} IPs
+  </span>
+</span>
+{{/if}}
+
+
+

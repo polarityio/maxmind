@@ -1,0 +1,43 @@
+<div class="notification-body-details-container">
+    <div class="padding-0-5">
+        <p>
+            {{#if details.city}}
+                {{details.city.names.en}},&nbsp;
+            {{/if}}
+            {{#if (and (not-eq details.mostSpecificSubdivision details.city) details.mostSpecificSubdivision)}}
+                {{details.mostSpecificSubdivision}},&nbsp;
+            {{/if}}
+            {{#if details.country}}
+                {{details.country.names.en}} ({{details.country.iso_code}})
+            {{/if}}
+            {{#if details.continent}}
+                , {{details.continent.names.en}}
+            {{/if}}
+        </p>
+
+        {{#if details.asn}}
+            <p>
+                <b>Org</b>: {{details.asn.autonomous_system_organization}}
+            </p>
+            <p>
+                <b>ASN</b>: {{details.asn.autonomous_system_number}}
+            </p>
+        {{/if}}
+        <p>
+            {{#if details.traits.is_anonymous_proxy}}
+                <i class="fa fa-user-secret"></i> Anonymous Proxy
+            {{/if}}
+            {{#if details.traits.is_satellite_provider}}
+                <i class="bts bt-rocket satellite-provider"></i> Satellite Provider
+            {{/if}}
+        </p>
+
+        {{#each block.ipAddresses as |ip|}}
+            <div>{{ip}}</div>
+        {{/each}}
+    </div>
+</div>
+<div style="clear:both"></div>
+
+
+
