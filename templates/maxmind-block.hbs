@@ -23,6 +23,12 @@
                 <b>ASN</b>: {{details.asn.autonomous_system_number}}
             </p>
         {{/if}}
+
+        {{#if details.network}}
+            <p>
+                <b>Network</b>: {{details.network}}
+            </p>
+        {{/if}}
         <p>
             {{#if details.traits.is_anonymous_proxy}}
                 <i class="fa fa-user-secret"></i> Anonymous Proxy

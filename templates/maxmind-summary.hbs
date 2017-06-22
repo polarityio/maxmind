@@ -1,12 +1,12 @@
 {{#if details.traits.is_anonymous_proxy}}
     <span class="integration-summary-tag critical-background critical-border" title="Anonymous Proxy">
-        <span class="acronym critical-bold">{{block.acronym}}</span> <span style="font-weight:normal"><i class="critical-bold fa fa-user-secret"></i></span>
+        <span class="acronym critical-bold">{{block.acronym}}</span> <span style="font-weight:normal; color: #fff"><i class="critical-bold fa fa-user-secret"></i> Proxy</span>
     </span>
 {{/if}}
 
 {{#if details.traits.is_satellite_provider}}
     <span class="integration-summary-tag critical-background critical-border" title="Satellite Provider">
-        <span class="acronym critical-bold">{{block.acronym}}</span> <span style="font-weight:normal"><i class="critical-bold bts bt-rocket"></i></span>
+        <span class="acronym critical-bold">{{block.acronym}}</span> <span style="font-weight:normal; color: #fff"><i class="critical-bold bts bt-rocket"></i> Satellite</span>
     </span>
 {{/if}}
 
@@ -14,8 +14,17 @@
     <span class="integration-summary-tag integration-background-color integration-border-color">
      <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
     <span class="integration-text-color">
-    {{#if details.city}}{{details.city.names.en}}{{/if}}{{#if (gt stateSummary.length 0)}}, {{stateSummary}}{{/if}}
-        {{countrySummary}}</span>
+        {{~#if details.city~}}
+            {{details.city.names.en}}
+        {{~/if~}}
+        {{~#if (and (gt stateSummary.length 0) details.userOptions.showState)~}}
+            {{~#if details.city~}}
+                ,
+            {{~/if}}
+            {{stateSummary}}
+        {{~/if}}
+        {{countrySummary}}
+    </span>
   </span>
 {{/if}}
 

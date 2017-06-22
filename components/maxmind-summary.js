@@ -20,6 +20,9 @@ polarity.export = PolarityComponent.extend({
                 if (/^\d+$/.test(iso)) {
                     return state;
                 } else {
+                    if(!this.get('details.city')){
+                        return state + ', ';
+                    }
                     return iso;
                 }
             }
@@ -32,6 +35,8 @@ polarity.export = PolarityComponent.extend({
         if (city === null || typeof(city) === 'undefined') {
             // No city data so we pass back full country name
             return this.get('details.country.names.en');
+        } else if (this.get('details.userOptions.showFullCountryName')) {
+            return '(' + this.get('details.country.names.en') + ')';
         } else {
             return '(' + this.get('details.country.iso_code') + ')';
         }
