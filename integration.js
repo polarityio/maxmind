@@ -1,6 +1,5 @@
 'use strict';
 
-let _ = require('lodash');
 let async = require('async');
 let config = require('./config/config');
 let path = require('path');
@@ -12,10 +11,10 @@ let cityLookup = null;
 let asnLookup = null;
 let startupErr = null;
 
-
 function startup(logger) {
     Logger = logger;
-    maxmind.open('database/GeoLite2-City.mmdb', (err, lookup) => {
+
+    maxmind.open(config.settings.geoLite2CityDatabasePath, (err, lookup) => {
         if(err){
             startupErr = err;
         }else{
@@ -23,7 +22,7 @@ function startup(logger) {
         }
     });
 
-    maxmind.open('database/GeoLite2-ASN.mmdb', (err, lookup) => {
+    maxmind.open(config.settings.geoLite2AsnDatabasePath, (err, lookup) => {
         if(err){
             startupErr = err;
         }else{
@@ -46,6 +45,7 @@ function doLookup(entities, options, cb) {
         // can't do lookup yet because we are still loading the databases
         // or there was an error
         Logger.warn('asnLookup or cityLookup database is null');
+
         cb(null, []);
         return;
     }
@@ -69,6 +69,14 @@ function doLookup(entities, options, cb) {
     });
 }
 
+/**
+ * Given an IP address and routingPrefix returns the CIDR network for that IP.
+ *
+ * @param address
+ * @param routingPrefix
+ * @returns {string}
+ * @private
+ */
 function _getNetworkAddress(address, routingPrefix)
 {
     let bytes = ipaddr.parse(address).toByteArray();
@@ -79,6 +87,7 @@ function _getNetworkAddress(address, routingPrefix)
 
     let network = ipaddr.fromByteArray(bytes).toString() + "/" + routingPrefix;
     Logger.info({address: address, routingPrefix: routingPrefix, bytes:bytes, network:network}, 'Bytes');
+
     return network;
 }
 
@@ -95,6 +104,7 @@ function _lookupIp(entityObj, options, cb) {
         //Logger.info({ip:ipaddr.IPv4.subnetMaskFromPrefixLength(entityObj.value)}, 'IP');
         //cityData.network = ipaddr.IPv4.networkAddressFromCIDR(entityObj.value + "/" + cityData.routingPrefix);
         cityData.network = _getNetworkAddress(entityObj.value, cityData.routingPrefix);
+        cityData.userOptions = options;
 
         cb(null, {
             // Required: This is the entity object passed into the integration doLookup method
