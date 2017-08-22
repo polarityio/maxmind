@@ -38,6 +38,21 @@ polarity.export = IntegrationBlock.extend({
     belongsToNotification: function (notificationGroupingKey, entityValues, entityNotificationsDict) {
         let entityName = entityValues[0];
         let network = entityValues[1];
+        let thisEntityName = this.get('entity.value');
+
+        if(entityName === null || typeof entityName === 'undefined' ||
+            typeof thisEntityName === 'undefined' || thisEntityName === null) {
+            let debug = {
+                notificationGroupingKey: notificationGroupingKey,
+                entityValues: entityValues,
+                entityNotificationsDict: entityNotificationsDict,
+                thisEntityValue: thisEntityName
+            };
+
+            console.error(JSON.stringify(debug));
+
+            return false;
+        }
 
         if (this.get('maxmindMergeNetworks') === true) {
             if ((this.get('data.details.network') === network && entityNotificationsDict.has(this.get('entity.value')) === false) ||
