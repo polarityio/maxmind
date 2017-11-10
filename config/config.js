@@ -16,7 +16,7 @@ module.exports = {
      * @required
      */
     acronym: 'MM',
-    logging: {level: 'trace'},
+    logging: {level: 'info'},
     entityTypes: ['IPv4', 'IPv6'],
     /**
      * Description for this integration which is displayed in the Polarity integrations user interface

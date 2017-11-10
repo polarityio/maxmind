@@ -51,15 +51,19 @@ function doLookup(entities, options, cb) {
     }
 
     async.each(entities, function (entity, next) {
-        _lookupIp(entity, options, function (err, result) {
-            if (err) {
-                next(err);
-                return;
-            }
+        if(ipaddr.isValid(entity.value)) {
+            _lookupIp(entity, options, function (err, result) {
+                if (err) {
+                    next(err);
+                    return;
+                }
 
-            lookupResults.push(result);
+                lookupResults.push(result);
+                next(null);
+            });
+        }else{
             next(null);
-        });
+        }
     }, function (err) {
         if (err) {
             cb(err);
@@ -86,7 +90,7 @@ function _getNetworkAddress(address, routingPrefix)
     }
 
     let network = ipaddr.fromByteArray(bytes).toString() + "/" + routingPrefix;
-    Logger.info({address: address, routingPrefix: routingPrefix, bytes:bytes, network:network}, 'Bytes');
+    Logger.debug({address: address, routingPrefix: routingPrefix, bytes:bytes, network:network}, 'Bytes');
 
     return network;
 }
@@ -95,8 +99,8 @@ function _lookupIp(entityObj, options, cb) {
     let cityData = cityLookup.getWithRoutingPrefix(entityObj.value);
     let asnData = asnLookup.getWithRoutingPrefix(entityObj.value);
 
-    Logger.info({maxmindCityResult: cityData}, 'City Data');
-    Logger.info({maxmindAsnResult: asnData}, 'ASN Data');
+    Logger.debug({maxmindCityResult: cityData}, 'City Data');
+    Logger.debug({maxmindAsnResult: asnData}, 'ASN Data');
 
     if (cityData) {
         cityData.asn = asnData;
@@ -139,31 +143,7 @@ function _getSummaryTags(data) {
     return summaryTags;
 }
 
-// function validateOptions(userOptions, cb) {
-//     let errors = [];
-//
-//     if (typeof userOptions.apiKey.value !== 'string' ||
-//         (typeof userOptions.apiKey.value === 'string' && userOptions.apiKey.value.length === 0)) {
-//         errors.push({
-//             key: 'apiKey',
-//             message: 'You must provide a Carbon Black API key'
-//         })
-//     }
-//
-//     if (typeof userOptions.url.value !== 'string' ||
-//         (typeof userOptions.url.value === 'string' && userOptions.url.value.length === 0)) {
-//         errors.push({
-//             key: 'url',
-//             message: 'You must provide a Carbon Black URL'
-//         })
-//     }
-//
-//     cb(null, errors);
-// }
-
-
 module.exports = {
     doLookup: doLookup,
-    startup: startup,
-    //validateOptions: validateOptions
+    startup: startup
 };

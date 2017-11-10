@@ -2,11 +2,11 @@
   "main": "./integration.js",
   "name": "MaxMind",
   "description": "Polarity MaxMind Integration",
-  "version": "1.0.0-beta",
+  "version": "1.1.0-beta",
   "private": true,
   "dependencies": {
     "async": "2.4.0",
-    "maxmind": "git+ssh://git@github.com:polarityio/node-maxmind.git",
+    "maxmind": "polarityio/node-maxmind.git",
     "ipaddr.js": "~1.3"
   }
 }
