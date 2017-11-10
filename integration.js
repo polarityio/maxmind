@@ -104,6 +104,7 @@ function _lookupIp(entityObj, options, cb) {
 
     if (cityData) {
         cityData.asn = asnData;
+        cityData.showAsnTag = options.showAsnTag;
         //let ip = new ipaddr.IPv4(entityObj.value);
         //Logger.info({ip:ipaddr.IPv4.subnetMaskFromPrefixLength(entityObj.value)}, 'IP');
         //cityData.network = ipaddr.IPv4.networkAddressFromCIDR(entityObj.value + "/" + cityData.routingPrefix);
