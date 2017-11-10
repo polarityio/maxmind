@@ -122,6 +122,15 @@ module.exports = {
             type: 'boolean',
             userCanEdit: true,
             adminOnly: false
+        },
+        {
+            key: 'showAsnTag',
+            name: 'Show ASN and Org Info as Tag',
+            description: 'If checked, the integration will display the ASN and organization information as a summary tag',
+            default: true,
+            type: 'boolean',
+            userCanEdit: true,
+            adminOnly: false
         }
     ]
 };

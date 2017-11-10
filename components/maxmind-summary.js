@@ -35,7 +35,7 @@ polarity.export = PolarityComponent.extend({
         if (city === null || typeof(city) === 'undefined') {
             // No city data so we pass back full country name
             return this.get('details.country.names.en');
-        } else if (this.get('details.userOptions.showFullCountryName')) {
+        } else if (this.get('block.userOptions.showFullCountryName')) {
             return '(' + this.get('details.country.names.en') + ')';
         } else {
             return '(' + this.get('details.country.iso_code') + ')';

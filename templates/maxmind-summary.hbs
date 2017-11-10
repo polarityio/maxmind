@@ -17,7 +17,7 @@
         {{~#if details.city~}}
             {{details.city.names.en}}
         {{~/if~}}
-        {{~#if (and (gt stateSummary.length 0) details.userOptions.showState)~}}
+        {{~#if (and (gt stateSummary.length 0) block.userOptions.showState)~}}
             {{~#if details.city~}}
                 ,
             {{~/if}}
@@ -28,11 +28,18 @@
   </span>
 {{/if}}
 
-{{#if (gt block.data.orgOrIsp.length 0)}}
+{{#if (and details.asn block.userOptions.showAsnTag)}}
     <span class="integration-summary-tag integration-background-color integration-border-color">
    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
-  <span class="integration-text-color">{{block.data.orgOrIsp}}</span>
-</span>
+        <span class="integration-text-color">
+            {{#if details.asn.autonomous_system_number}}
+                [AS{{details.asn.autonomous_system_number}}]
+            {{/if}}
+            {{#if details.asn.autonomous_system_organization}}
+                AS{{details.asn.autonomous_system_organization}}
+            {{/if}}
+        </span>
+   </span>
 {{/if}}
 
 {{#if (and maxmindMergeNetworks (gt block.ipAddresses.length 1))}}

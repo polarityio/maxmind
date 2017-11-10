@@ -104,11 +104,7 @@ function _lookupIp(entityObj, options, cb) {
 
     if (cityData) {
         cityData.asn = asnData;
-        //let ip = new ipaddr.IPv4(entityObj.value);
-        //Logger.info({ip:ipaddr.IPv4.subnetMaskFromPrefixLength(entityObj.value)}, 'IP');
-        //cityData.network = ipaddr.IPv4.networkAddressFromCIDR(entityObj.value + "/" + cityData.routingPrefix);
         cityData.network = _getNetworkAddress(entityObj.value, cityData.routingPrefix);
-        cityData.userOptions = options;
 
         cb(null, {
             // Required: This is the entity object passed into the integration doLookup method
