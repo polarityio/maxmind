@@ -125,7 +125,7 @@ module.exports = {
         },
         {
             key: 'showAsnTag',
-            name: 'Show ASN and Org Information as Summary Tag',
+            name: 'Show ASN and Org Info as Tag',
             description: 'If checked, the integration will display the ASN and organization information as a summary tag',
             default: true,
             type: 'boolean',

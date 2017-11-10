@@ -17,7 +17,7 @@
         {{~#if details.city~}}
             {{details.city.names.en}}
         {{~/if~}}
-        {{~#if (and (gt stateSummary.length 0) details.userOptions.showState)~}}
+        {{~#if (and (gt stateSummary.length 0) block.userOptions.showState)~}}
             {{~#if details.city~}}
                 ,
             {{~/if}}
@@ -28,7 +28,7 @@
   </span>
 {{/if}}
 
-{{#if (and details.asn details.showAsnTag)}}
+{{#if (and details.asn block.userOptions.showAsnTag)}}
     <span class="integration-summary-tag integration-background-color integration-border-color">
    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
         <span class="integration-text-color">
