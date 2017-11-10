@@ -2,7 +2,7 @@
   "main": "./integration.js",
   "name": "MaxMind",
   "description": "Polarity MaxMind Integration",
-  "version": "1.1.0-beta",
+  "version": "1.2.0-beta",
   "private": true,
   "dependencies": {
     "async": "2.4.0",
