@@ -84,27 +84,6 @@ module.exports = {
      * @optional
      */
     options: [
-        // {
-        //     key: 'geoLite2CityDatabasePath',
-        //     name: 'Maxmind GeoIP2 or GeoLite2 City Database File',
-        //     description: 'The file path to your MaxMind GeoIP2 database, or GeoLite2 City database file.  \
-        //     If a relative path is provided, the path will be relative to the integration\'s root directory',
-        //     default: '',
-        //     type: 'string',
-        //     userCanEdit: false,
-        //     adminOnly: true
-        // },
-        // {
-        //     key: 'geoLite2AsnDatabasePath',
-        //     name: 'Maxmind GeoLite2 ASN Database File',
-        //     description: 'The file path to your MaxMind GeoLite2 ASN database file.  \
-        //     If a relative path is provided, the path will be relative to the integration\'s root directory.  \
-        //     If no path is provided, the integration will not display ASN information. ',
-        //     default: '',
-        //     type: 'string',
-        //     userCanEdit: false,
-        //     adminOnly: true
-        // },
         {
             key: 'showFullCountryName',
             name: 'Show Full Country Name',
