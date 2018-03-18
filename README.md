@@ -4,7 +4,7 @@ The Polarity [Maxmind](https://www.maxmind.com/) integration allows Polarity to 
 
 You can download the free MaxMind GeoLite2 City and ASN databases directly from MaxMind at [https://dev.maxmind.com/geoip/geoip2/geolite2/](https://dev.maxmind.com/geoip/geoip2/geolite2/)
 
-We recommend downloading the latest `GeoLite2 City` database (in binary format) and `GeoLite2 ASN` database (also in binary format).  Both of these database should be uploaded to your Polarity Server.  See Installation Instructions for more information.
+We recommend downloading the latest `GeoLite2 City` database (in binary format) and `GeoLite2 ASN` database (also in binary format).  Both of these databases should be uploaded to your Polarity Server.  See Installation Instructions for more information.
 
 | ![image](https://user-images.githubusercontent.com/306319/32642802-bb273cc4-c5a4-11e7-8d96-207cb95c6515.png) |
 |---|
@@ -23,7 +23,7 @@ git clone https://github.com/polarityio/maxmind.git maxmind.server
 
 ### Updating the MaxMind Databases
 
-This integration includes the free MaxMind City and ASN database.  New databases are released on the first tuesday of each month and we recommend keeping your database updated with teh latest version.  To do thi you can download both the MaxMind GeoLite2 City and MaxMind GeoLite2 ASN databases from the following links:
+This integration includes the free MaxMind City and ASN database.  New databases are released on the first tuesday of each month and we recommend keeping your database updated with the latest version.  To do this you can download both the MaxMind GeoLite2 City and MaxMind GeoLite2 ASN databases from the following links:
 
 City Database: http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz
 ASN Database: http://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz
