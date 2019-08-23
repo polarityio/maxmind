@@ -6,7 +6,7 @@ You can download the free MaxMind GeoLite2 City and ASN databases directly from 
 
 We recommend downloading the latest `GeoLite2 City` database (in binary format) and `GeoLite2 ASN` database (also in binary format).  Both of these databases should be uploaded to your Polarity Server.  See Installation Instructions for more information.
 
-| ![image](https://user-images.githubusercontent.com/306319/32642802-bb273cc4-c5a4-11e7-8d96-207cb95c6515.png) |
+| ![image](images/overlay.png) |
 |---|
 |*MaxMind lookup example* |
 
