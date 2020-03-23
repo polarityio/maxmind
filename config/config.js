@@ -16,7 +16,7 @@ module.exports = {
    * @required
    */
   acronym: 'MM',
-  logging: { level: 'info' },
+  logging: { level: 'trace' },
   entityTypes: ['IPv4', 'IPv6'],
   /**
    * Description for this integration which is displayed in the Polarity integrations user interface
@@ -108,6 +108,24 @@ module.exports = {
       description: 'If checked, the integration will display the ASN and organization information as a summary tag',
       default: true,
       type: 'boolean',
+      userCanEdit: true,
+      adminOnly: false
+    },
+    {
+      key: 'filter',
+      name: 'Restrict search to a single country ',
+      description: 'If checked, Polarity will only return information based on a single country code',
+      default: false,
+      type: 'boolean',
+      userCanEdit: true,
+      adminOnly: false
+    },
+    {
+      key: 'countryCodes',
+      name: 'Country code to restrict maxmind searching to',
+      description: 'Single country code (ex.. "RU" for Russia) to limit maxmind searching to, for more information on Maxmind country codes please visit: https://dev.maxmind.com/geoip/legacy/codes/iso3166/',
+      default: '',
+      type: 'text',
       userCanEdit: true,
       adminOnly: false
     }

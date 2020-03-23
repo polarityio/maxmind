@@ -103,11 +103,32 @@ function _lookupIp(entityObj, options, cb) {
 
   Logger.debug({ maxmindCityResult: cityData }, 'City Data');
   Logger.debug({ maxmindAsnResult: asnData }, 'ASN Data');
-
-  if (cityData) {
+  Logger.trace({options:options}, "Checking options coming through");
+  
+  let isoCode = JSON.stringify(cityData.country.iso_code);
+  let countryCode = options.countryCodes;
+  
+  Logger.trace({isoCode: isoCode}, "Checking data isocode");
+  Logger.trace({countryCode: countryCode}, "Checking countryCode");
+  if (options.filter && (cityData.country.iso_code === options.countryCodes)) {
     cityData.asn = asnData;
     cityData.network = _getNetworkAddress(entityObj.value, cityData.routingPrefix);
-
+    Logger.trace({cityData:cityData}, "Checking city data");
+    cb(null, {
+      // Required: This is the entity object passed into the integration doLookup method
+      entity: entityObj,
+      // Required: An object containing everything you want passed to the template
+      data: {
+        // Required: These are the tags that are displayed in your template
+        summary: _getSummaryTags(cityData),
+        // Data that you want to pass back to the notification window details block
+        details: cityData
+      }
+    });
+  }else if (options.filter == false) {
+    cityData.asn = asnData;
+    cityData.network = _getNetworkAddress(entityObj.value, cityData.routingPrefix);
+    Logger.trace({cityData:cityData}, "Checking city data of false");
     cb(null, {
       // Required: This is the entity object passed into the integration doLookup method
       entity: entityObj,
