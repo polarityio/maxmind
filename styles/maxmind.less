@@ -1,22 +1,17 @@
-@brand-success: #5cb85c;
 @brand-danger: #d9534f;
 
-.notification-body-details-container {
-  min-height: 60px;
-  line-height: 1.5em;
-
-  b {
-    color: #888;
-  }
-
-  i {
-    color: #999;
-  }
-
-  .critical-bold{
-    color: lighten(@brand-danger, 30%);
-  }
+.ip-tag {
+  background-color: #dedede;
+  border-radius: 4px;
+  margin-bottom: 2px;
+  padding: 3px;
+  display: inline-block;
 }
 
+.critical-bold-light {
+  color: lighten(@brand-danger, 30%) !important;
+}
 
-
+.critical-bold {
+  color: @brand-danger !important;
+}

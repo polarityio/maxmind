@@ -6,7 +6,7 @@ You can download the free MaxMind GeoLite2 City and ASN databases directly from 
 
 We recommend downloading the latest `GeoLite2 City` database (in binary format) and `GeoLite2 ASN` database (also in binary format).  Both of these databases should be uploaded to your Polarity Server.  See Installation Instructions for more information.
 
-| ![image](images/overlay.png) |
+| ![image](assets/overlay.png) |
 |---|
 |*MaxMind lookup example* |
 
@@ -42,6 +42,32 @@ Upload these database files to your polarity server's MaxMind integration direct
 ```
 
 Additional installation instructions for integrations are provided on the [PolarityIO GitHub Page](https://polarityio.github.io/).
+
+## MaxMind Integration Options
+
+### Country Blacklist
+
+A blacklist of countries to hide results from (i.e., no results will be shown for selected countries). You cannot provide both a Country Blacklist and a Country Whitelist.
+
+> If no "Country Whitelist" and no "Country Blacklist" are set, then all results will be returned.
+
+### Country Whitelist
+
+A whitelist of countries that results should be shown for (i.e., results will only be shown for selected countries). You cannot provide both a Country Blacklist and a Country Whitelist.
+
+> If no "Country Whitelist" and no "Country Blacklist" are set, then all results will be returned.
+
+### Show Full Country Name
+
+If checked, integration will always display the full country name rather than just the country ISO Code in the MaxMind notification summary
+
+### Show State
+
+If checked, the integration will display the state or subdivision information when available in the MaxMind notification summary
+
+### Show ASN and Org Info
+
+If checked, the integration will display the ASN and organization information as a summary tag
 
 ## Polarity
 
