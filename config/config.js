@@ -133,7 +133,7 @@ module.exports = {
     {
       key: 'fullResultsForOnDemand',
       name: 'Return all Countries for On-Demand Lookups',
-      description: 'If checked, the integration will return results for all countries when an On-demand search is run.',
+      description: 'If checked, the integration will return results for all countries when an On-demand search is run (i.e., Country Whitelist and Country Blacklist settings will be ignored for On-Demand lookups).',
       default: false,
       type: 'boolean',
       userCanEdit: true,
