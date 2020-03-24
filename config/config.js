@@ -1,3 +1,17 @@
+const Papa = require('papaparse');
+const fs = require('fs');
+
+const csvAsString = fs.readFileSync('./assets/country-codes/iso3166.csv', 'utf8');
+let countryCodes = Papa.parse(csvAsString, {
+  header: false,
+  skipEmptyLines: true,
+  delimiter: ',',
+  quoteChar: '"'
+});
+if (countryCodes.errors.length > 0) {
+  throw new Error({ errors: countryCodes.errors, msg: 'Encountered Errors Parsing Country Codes File' });
+}
+
 module.exports = {
   /**
    * Name of the integration which is displayed in the Polarity integrations user interface
@@ -83,8 +97,51 @@ module.exports = {
    */
   options: [
     {
+      key: 'countryBlacklist',
+      name: 'Country Blacklist',
+      description:
+        'A blacklist of countries to hide results from (i.e., no results will be shown for selected countries).  You cannot provide both a Country Blacklist and a Country Whitelist.',
+      default: [],
+      type: 'select',
+      options: countryCodes.data.map((row) => {
+        return {
+          value: row[0],
+          display: row[1]
+        };
+      }),
+      multiple: true,
+      userCanEdit: true,
+      adminOnly: false
+    },
+    {
+      key: 'countryWhitelist',
+      name: 'Country Whitelist',
+      description:
+        'A whitelist of countries that results should be shown for (i.e., results will only be shown for selected countries). You cannot provide both a Country Blacklist and a Country Whitelist.',
+      default: [],
+      type: 'select',
+      options: countryCodes.data.map((row) => {
+        return {
+          value: row[0],
+          display: row[1]
+        };
+      }),
+      multiple: true,
+      userCanEdit: true,
+      adminOnly: false
+    },
+    {
+      key: 'fullResultsForOnDemand',
+      name: 'Return all Countries for On-Demand Lookups',
+      description: 'If checked, the integration will return results for all countries when an On-demand search is run (i.e., Country Whitelist and Country Blacklist settings will be ignored for On-Demand lookups).',
+      default: false,
+      type: 'boolean',
+      userCanEdit: true,
+      adminOnly: false
+    },
+    {
       key: 'showFullCountryName',
-      name: 'Show Full Country Name',
+      name: 'Show Full Country Name in Summary',
       description:
         'If checked, integration will always display the full country name rather than just the country ISO Code in the MaxMind notification summary',
       default: true,
@@ -94,7 +151,7 @@ module.exports = {
     },
     {
       key: 'showState',
-      name: 'Show State',
+      name: 'Show State in Summary',
       description:
         'If checked, the integration will display the state or subdivision information when available in the MaxMind notification summary',
       default: true,
@@ -104,7 +161,7 @@ module.exports = {
     },
     {
       key: 'showAsnTag',
-      name: 'Show ASN and Org Info as Tag',
+      name: 'Show ASN and Org Info in Summary',
       description: 'If checked, the integration will display the ASN and organization information as a summary tag',
       default: true,
       type: 'boolean',
