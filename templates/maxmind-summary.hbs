@@ -28,7 +28,7 @@
   </span>
 {{/if}}
 
-{{#if details.registered_country}}
+{{#if (and details.registered_country (not countrySummary))}}
   <span class="integration-summary-tag integration-background-color integration-border-color">
     <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
     <span class="integration-text-color">
