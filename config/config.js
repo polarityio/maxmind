@@ -131,6 +131,15 @@ module.exports = {
       adminOnly: false
     },
     {
+      key: 'fullResultsForOnDemand',
+      name: 'Return all Countries for On-Demand Lookups',
+      description: 'If checked, the integration will return results for all countries when an On-demand search is run.',
+      default: false,
+      type: 'boolean',
+      userCanEdit: true,
+      adminOnly: false
+    },
+    {
       key: 'showFullCountryName',
       name: 'Show Full Country Name in Summary',
       description:

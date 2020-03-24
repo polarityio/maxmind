@@ -56,6 +56,8 @@ A whitelist of countries that results should be shown for (i.e., results will on
 
 > If no "Country Whitelist" and no "Country Blacklist" are set, then all results will be returned.
 
+### Return all Countries for On-Demand Lookups
+
 ### Show Full Country Name
 
 If checked, integration will always display the full country name rather than just the country ISO Code in the MaxMind notification summary

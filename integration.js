@@ -34,6 +34,8 @@ function startup(logger) {
 function doLookup(entities, options, cb) {
   let lookupResults = [];
 
+  Logger.trace({entities, options}, 'doLookup');
+
   if (startupErr) {
     Logger.error({ startupError: startupErr }, 'Error loading maxmind databases');
     cb(startupErr);
@@ -56,7 +58,7 @@ function doLookup(entities, options, cb) {
     entities,
     function(entity, next) {
       if (ipaddr.isValid(entity.value)) {
-        _lookupIp(entity, countryBlacklist, countryWhitelist, function(err, result) {
+        _lookupIp(entity, countryBlacklist, countryWhitelist, options, function(err, result) {
           if (err) {
             next(err);
             return;
@@ -118,7 +120,11 @@ function _createBlacklistLookup(options) {
   return blacklist;
 }
 
-function isCountryFiltered(countryIsoCode, countryBlacklist, countryWhitelist) {
+function isCountryFiltered(countryIsoCode, countryBlacklist, countryWhitelist, entity, options) {
+  if(options.fullResultsForOnDemand && entity.requestContext.requestType === "OnDemand"){
+    return false;
+  }
+
   if (countryBlacklist.size > 0 && countryBlacklist.has(countryIsoCode)) {
     // the blacklist is being implemented and this country is blacklisted
     return true;
@@ -142,7 +148,7 @@ function _getCountryCode(cityData) {
   return 'O1';
 }
 
-function _lookupIp(entityObj, countryBlacklist, countryWhitelist, cb) {
+function _lookupIp(entityObj, countryBlacklist, countryWhitelist, options, cb) {
   let cityData = cityLookup.getWithRoutingPrefix(entityObj.value);
   let asnData = asnLookup.getWithRoutingPrefix(entityObj.value);
 
@@ -159,7 +165,7 @@ function _lookupIp(entityObj, countryBlacklist, countryWhitelist, cb) {
   const countryCode = _getCountryCode(cityData);
 
   Logger.trace({ isoCode: countryCode }, 'Checking data isocode');
-  if (!isCountryFiltered(countryCode, countryBlacklist, countryWhitelist)) {
+  if (!isCountryFiltered(countryCode, countryBlacklist, countryWhitelist, entityObj, options)) {
     cityData.asn = asnData;
     cityData.network = _getNetworkAddress(entityObj.value, cityData.routingPrefix);
     Logger.trace({ cityData: cityData }, 'Checking city data');
