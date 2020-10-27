@@ -1,17 +1,17 @@
 {{#if details.traits.is_anonymous_proxy}}
-    <span class="integration-summary-tag critical-background critical-border" title="Anonymous Proxy">
+    <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag critical-background critical-border" title="Anonymous Proxy">
         <span class="acronym critical-bold-light">{{block.acronym}}</span> <span style="font-weight:normal; color: #fff">{{fa-icon "user-secret" class="critical-bold-light" fixedWidth=true}} Proxy</span>
     </span>
 {{/if}}
 
 {{#if details.traits.is_satellite_provider}}
-    <span class="integration-summary-tag critical-background critical-border" title="Satellite Provider">
+    <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag critical-background critical-border" title="Satellite Provider">
         <span class="acronym critical-bold-light">{{block.acronym}}</span> <span style="font-weight:normal; color: #fff">{{fa-icon "satellite-dish" classNames="critical-bold-light" fixedWidth=true}} Satellite</span>
     </span>
 {{/if}}
 
 {{#if hasGeolocationData}}
-    <span class="integration-summary-tag integration-background-color integration-border-color">
+    <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
      <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
     <span class="integration-text-color">
         {{~#if details.city~}}
@@ -29,7 +29,7 @@
 {{/if}}
 
 {{#if (and details.registered_country (not countrySummary))}}
-  <span class="integration-summary-tag integration-background-color integration-border-color">
+  <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
     <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
     <span class="integration-text-color">
       {{details.registered_country.names.en}}
@@ -38,7 +38,7 @@
 {{/if}}
 
 {{#if (and details.asn block.userOptions.showAsnTag)}}
-    <span class="integration-summary-tag integration-background-color integration-border-color">
+    <span {{on "click" (optional this.scrollToIntegration)}} class="integration-summary-tag integration-background-color integration-border-color">
    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
         <span class="integration-text-color">
             {{#if details.asn.autonomous_system_number}}
@@ -52,7 +52,7 @@
 {{/if}}
 
 {{#if (and maxmindMergeNetworks (gt block.ipAddresses.length 1))}}
-    <span class="label-notification integration-summary-tag integration-background-color integration-border-color">
+    <span {{on "click" (optional this.scrollToIntegration)}} class="label-notification integration-summary-tag integration-background-color integration-border-color">
    <span class="acronym integration-text-bold-color">{{block.acronym}}</span>
   <span class="integration-text-color">
     {{block.ipAddresses.length}} IPs
