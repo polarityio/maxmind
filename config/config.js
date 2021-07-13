@@ -55,6 +55,7 @@ module.exports = {
    * @type Object
    * @optional
    */
+  defaultColor: 'light-gray',
   block: {
     component: {
       file: './components/maxmind-block.js'
