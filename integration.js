@@ -1,10 +1,10 @@
 'use strict';
 
-let async = require('async');
-let config = require('./config/config');
-let path = require('path');
-let maxmind = require('maxmind');
-let ipaddr = require('ipaddr.js');
+const async = require('async');
+const config = require('./config/config');
+const maxmind = require('maxmind');
+const ipaddr = require('ipaddr.js');
+const cloneDeep = require('lodash.clonedeep');
 
 let Logger;
 let cityLookup = null;
@@ -65,7 +65,7 @@ function doLookup(entities, options, cb) {
           }
 
           if (result) {
-            lookupResults.push(result);
+            lookupResults.push(cloneDeep(result));
           }
 
           next(null);

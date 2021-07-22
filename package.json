@@ -2,12 +2,13 @@
   "main": "./integration.js",
   "name": "MaxMind",
   "description": "Polarity MaxMind Integration",
-  "version": "3.2.3-beta",
+  "version": "3.2.4-beta",
   "private": true,
   "dependencies": {
     "async": "^3.2.0",
     "maxmind": "polarityio/node-maxmind.git#master",
     "ipaddr.js": "^1.9.1",
-    "papaparse": "^5.1.1"
+    "papaparse": "^5.1.1",
+    "lodash.clonedeep": "^4.5.0"
   }
 }
