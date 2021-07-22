@@ -8,6 +8,7 @@
     "async": "^3.2.0",
     "maxmind": "polarityio/node-maxmind.git#master",
     "ipaddr.js": "^1.9.1",
-    "papaparse": "^5.1.1"
+    "papaparse": "^5.1.1",
+    "lodash.clonedeep": "^4.5.0"
   }
 }

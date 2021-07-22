@@ -1,10 +1,10 @@
 'use strict';
 
-let async = require('async');
-let config = require('./config/config');
-let path = require('path');
-let maxmind = require('maxmind');
-let ipaddr = require('ipaddr.js');
+const async = require('async');
+const config = require('./config/config');
+const maxmind = require('maxmind');
+const ipaddr = require('ipaddr.js');
+const cloneDeep = require('lodash.clonedeep');
 
 let Logger;
 let cityLookup = null;
@@ -147,18 +147,6 @@ function _getCountryCode(cityData) {
   // the code O1 stands for other country
   return 'O1';
 }
-
-const cloneDeep = (entity, cache = new WeakMap()) => {
-  const referenceTypes = ['Array', 'Object'];
-  const entityType = Object.prototype.toString.call(entity);
-  if (!new RegExp(referenceTypes.join('|')).test(entityType)) return entity;
-  if (cache.has(entity)) {
-    return cache.get(entity);
-  }
-  const c = new entity.constructor();
-  cache.set(entity, c);
-  return Object.assign(c, ...Object.keys(entity).map((prop) => ({ [prop]: cloneDeep(entity[prop], cache) })));
-};
 
 function _lookupIp(entityObj, countryBlacklist, countryWhitelist, options, cb) {
   let cityData = cityLookup.getWithRoutingPrefix(entityObj.value);
