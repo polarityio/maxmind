@@ -31,7 +31,7 @@
 {{#if details.asn}}
   <div>
     <span class="p-key">Org: </span>
-    <span class="p-value">{{details.asn.autonomous_system_organization}}</span>
+    <span class="p-value words">{{details.asn.autonomous_system_organization}}</span>
   </div>
   <div>
     <span class="p-key">ASN: </span>
@@ -46,6 +46,26 @@
   </div>
 {{/if}}
 
+{{#if details.location.latitude}}
+    <div>
+        <span class="p-key">Latitude, Longitude: </span>
+        <span class="p-value">{{details.location.latitude}}, {{details.location.longitude}}</span>
+    </div>
+{{/if}}
+
+{{#if details.location.accuracy_radius}}
+    <div>
+        <span class="p-key">Accuracy Radius: </span>
+        <span class="p-value">{{details.location.accuracy_radius}} km</span>
+    </div>
+{{/if}}
+
+{{#if details.location.time_zone}}
+    <div>
+        <span class="p-key">Timezone: </span>
+        <span class="p-value">{{details.location.time_zone}}</span>
+    </div>
+{{/if}}
 
 {{#if details.traits.is_anonymous_proxy}}
   <div>
@@ -59,6 +79,8 @@
     <span class="p-value">{{fa-icon "satellite-dish" fixedWidth=true class="critical-bold"}} Satellite Provider</span>
   </div>
 {{/if}}
+
+
 
 {{#if (gt block.ipAddresses.length 1)}}
   <h1 class="p-title">{{fa-icon "network-wired" fixedWidth=true}} Addresses Recognized in Network</h1>
