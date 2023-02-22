@@ -4,6 +4,12 @@ polarity.export = PolarityComponent.extend({
   details: Ember.computed.alias('block.data.details'),
   showCopyMessage: false,
   uniqueIdPrefix: '',
+  init () {
+    let array = new Uint32Array(5);
+    this.set('uniqueIdPrefix', window.crypto.getRandomValues(array).join(''));
+
+    this._super(...arguments);
+  },
   actions: {
     copyData: function () {
       Ember.run.scheduleOnce(
