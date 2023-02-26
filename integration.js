@@ -15,7 +15,6 @@ function startup(logger) {
     try {
       cityLookup = await maxmind.open(config.settings.geoLite2CityDatabasePath);
       asnLookup = await maxmind.open(config.settings.geoLite2AsnDatabasePath);
-      Logger.info('Loaded databases');
       cb(null);
     } catch (error) {
       Logger.error(error, 'Error loading maxmind databases');
