@@ -3,45 +3,33 @@
 const async = require('async');
 const config = require('./config/config');
 const maxmind = require('maxmind');
-const ipaddr = require('ipaddr.js');
-const cloneDeep = require('lodash.clonedeep');
 
 let Logger;
 let cityLookup = null;
 let asnLookup = null;
-let startupErr = null;
 
 function startup(logger) {
   Logger = logger;
 
-  maxmind.open(config.settings.geoLite2CityDatabasePath, (err, lookup) => {
-    if (err) {
-      startupErr = err;
-    } else {
-      cityLookup = lookup;
+  return async function (cb) {
+    try {
+      cityLookup = await maxmind.open(config.settings.geoLite2CityDatabasePath);
+      asnLookup = await maxmind.open(config.settings.geoLite2AsnDatabasePath);
+      Logger.info('Loaded databases');
+      cb(null);
+    } catch (error) {
+      Logger.error(error, 'Error loading maxmind databases');
+      cb(parseErrorToReadableJSON(error));
     }
-  });
-
-  maxmind.open(config.settings.geoLite2AsnDatabasePath, (err, lookup) => {
-    if (err) {
-      startupErr = err;
-    } else {
-      asnLookup = lookup;
-    }
-  });
+  };
 }
+
+const parseErrorToReadableJSON = (error) => JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error)));
 
 function doLookup(entities, options, cb) {
   let lookupResults = [];
 
-  Logger.trace({entities, options}, 'doLookup');
-
-  if (startupErr) {
-    Logger.error({ startupError: startupErr }, 'Error loading maxmind databases');
-    cb(startupErr);
-    startupErr = null;
-    return;
-  }
+  Logger.trace({ entities, options }, 'doLookup');
 
   if (asnLookup === null || cityLookup === null) {
     // can't do lookup yet because we are still loading the databases
@@ -56,16 +44,16 @@ function doLookup(entities, options, cb) {
 
   async.each(
     entities,
-    function(entity, next) {
-      if (ipaddr.isValid(entity.value)) {
-        _lookupIp(entity, countryBlacklist, countryWhitelist, options, function(err, result) {
+    function (entity, next) {
+      if (maxmind.validate(entity.value)) {
+        _lookupIp(entity, countryBlacklist, countryWhitelist, options, function (err, result) {
           if (err) {
             next(err);
             return;
           }
 
           if (result) {
-            lookupResults.push(cloneDeep(result));
+            lookupResults.push(result);
           }
 
           next(null);
@@ -74,7 +62,7 @@ function doLookup(entities, options, cb) {
         next(null);
       }
     },
-    function(err) {
+    function (err) {
       if (err) {
         cb(err);
       } else {
@@ -82,26 +70,6 @@ function doLookup(entities, options, cb) {
       }
     }
   );
-}
-
-/**
- * Given an IP address and routingPrefix returns the CIDR network for that IP.
- *
- * @param address
- * @param routingPrefix
- * @returns {string}
- * @private
- */
-function _getNetworkAddress(address, routingPrefix) {
-  let bytes = ipaddr.parse(address).toByteArray();
-  for (let i = routingPrefix; i < bytes.length * 8; ++i) {
-    bytes[Math.floor(i / 8)] &= ~(0x80 >> i % 8);
-  }
-
-  let network = ipaddr.fromByteArray(bytes).toString() + '/' + routingPrefix;
-  Logger.debug({ address: address, routingPrefix: routingPrefix, bytes: bytes, network: network }, 'Bytes');
-
-  return network;
 }
 
 function _createWhitelistLookup(options) {
@@ -121,7 +89,7 @@ function _createBlacklistLookup(options) {
 }
 
 function isCountryFiltered(countryIsoCode, countryBlacklist, countryWhitelist, entity, options) {
-  if(options.fullResultsForOnDemand && entity.requestContext.requestType === "OnDemand"){
+  if (options.fullResultsForOnDemand && entity.requestContext.requestType === 'OnDemand') {
     return false;
   }
 
@@ -149,8 +117,8 @@ function _getCountryCode(cityData) {
 }
 
 function _lookupIp(entityObj, countryBlacklist, countryWhitelist, options, cb) {
-  let cityData = cityLookup.getWithRoutingPrefix(entityObj.value);
-  let asnData = asnLookup.getWithRoutingPrefix(entityObj.value);
+  let cityData = cityLookup.get(entityObj.value);
+  let asnData = asnLookup.get(entityObj.value);
 
   Logger.debug({ maxmindCityResult: cityData }, 'City Data');
   Logger.debug({ maxmindAsnResult: asnData }, 'ASN Data');
@@ -167,7 +135,6 @@ function _lookupIp(entityObj, countryBlacklist, countryWhitelist, options, cb) {
   Logger.trace({ isoCode: countryCode }, 'Checking data isocode');
   if (!isCountryFiltered(countryCode, countryBlacklist, countryWhitelist, entityObj, options)) {
     cityData.asn = asnData;
-    cityData.network = _getNetworkAddress(entityObj.value, cityData.routingPrefix);
     Logger.trace({ cityData: cityData }, 'Checking city data');
     cb(null, {
       // Required: This is the entity object passed into the integration doLookup method
