@@ -72,9 +72,6 @@ module.exports = {
       file: './templates/maxmind-summary.hbs'
     }
   },
-  integrationBlock: {
-    file: './block/maxmind.js'
-  },
   settings: {
     /**
      * Directory path to the GeoLiteCity 2 database.  If a relative path is chosen, the path will be relative
