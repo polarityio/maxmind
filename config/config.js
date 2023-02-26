@@ -58,6 +58,14 @@ module.exports = {
       file: './templates/maxmind-summary.hbs'
     }
   },
+  request: {
+    cert: '',
+    key: '',
+    passphrase: '',
+    ca: '',
+    proxy: '',
+    rejectUnauthorized: true
+  },
   settings: {
     /**
      * Directory path to the GeoLiteCity 2 database.  If a relative path is chosen, the path will be relative
