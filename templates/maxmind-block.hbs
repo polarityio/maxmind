@@ -1,93 +1,100 @@
 <h1 class="p-title">{{fa-icon "info-circle" fixedWidth=true}} Info</h1>
-{{#if details.city}}
-  <div>
-    <span class="p-key">Location: </span>
-    <span class="p-value">
-      {{#if details.city}}
-        {{details.city.names.en}},&nbsp;
-      {{/if}}
-      {{#if (and (not-eq details.mostSpecificSubdivision details.city) details.mostSpecificSubdivision)}}
-        {{details.mostSpecificSubdivision}},&nbsp;
-      {{/if}}
-      {{#if details.country}}
-        {{details.country.names.en}} ({{details.country.iso_code}})
-      {{/if}}
-    </span>
-  </div>
-{{/if}}
-
-{{#if details.continent}}
-  <div>
-    <span class="p-key">Continent: </span>
-    <span class="p-value">{{details.continent.names.en}}</span>
-  </div>
-{{/if}}
-
-{{#if details.registered_country}}
-  <span class="p-key">Registered Country:</span>
-  <span class="p-value">{{details.registered_country.names.en}}</span>
-{{/if}}
-
-{{#if details.asn}}
-  <div>
-    <span class="p-key">Org: </span>
-    <span class="p-value words">{{details.asn.autonomous_system_organization}}</span>
-  </div>
-  <div>
-    <span class="p-key">ASN: </span>
-    <span class="p-value">{{details.asn.autonomous_system_number}}</span>
-  </div>
-{{/if}}
-
-{{#if details.network}}
-  <div>
-    <span class="p-key">Network: </span>
-    <span class="p-value">{{details.network}}</span>
-  </div>
-{{/if}}
-
-{{#if details.location.latitude}}
-    <div>
-        <span class="p-key">Latitude, Longitude: </span>
-        <span class="p-value">{{details.location.latitude}}, {{details.location.longitude}}</span>
+<div id={{concat "maxmind-container-" uniqueIdPrefix}}>
+  <li class="d-flex align-items-center justify-content-end copy-btn-container">
+    <button class="btn copy-btn p-action" {{action "copyData"}} title="Copy Information to Clipboard">
+      {{fa-icon icon="clipboard" fixedWidth=true}}
+    </button>
+    <div class="copy-success-message {{if showCopyMessage "visible" "hidden"}}">
+      {{fa-icon icon="check" fixedWidth=true class="copy-success-icon"}}
+      Copied Information.
     </div>
-{{/if}}
-
-{{#if details.location.accuracy_radius}}
+  </li>
+  {{#if details.city}}
     <div>
-        <span class="p-key">Accuracy Radius: </span>
-        <span class="p-value">{{details.location.accuracy_radius}} km</span>
+      <span class="p-key">Location: </span>
+      <span class="p-value">
+        {{#if details.city}}
+          {{details.city.names.en}},&nbsp;
+        {{/if}}
+        {{#if (and (not-eq details.mostSpecificSubdivision details.city) details.mostSpecificSubdivision)}}
+          {{details.mostSpecificSubdivision}},&nbsp;
+        {{/if}}
+        {{#if details.country}}
+          {{details.country.names.en}}
+          ({{details.country.iso_code}})
+        {{/if}}
+      </span>
     </div>
-{{/if}}
+  {{/if}}
 
-{{#if details.location.time_zone}}
+  {{#if details.continent}}
     <div>
-        <span class="p-key">Timezone: </span>
-        <span class="p-value">{{details.location.time_zone}}</span>
+      <span class="p-key">Continent: </span>
+      <span class="p-value">{{details.continent.names.en}}</span>
     </div>
-{{/if}}
+  {{/if}}
 
-{{#if details.traits.is_anonymous_proxy}}
-  <div>
-    <span class="p-key">Type: </span>
-    <span class="p-value">{{fa-icon "user-secret" fixedWidth=true class="critical-bold"}} Anonymous Proxy</span>
-  </div>
-{{/if}}
-{{#if details.traits.is_satellite_provider}}
-  <div>
-    <span class="p-key">Type: </span>
-    <span class="p-value">{{fa-icon "satellite-dish" fixedWidth=true class="critical-bold"}} Satellite Provider</span>
-  </div>
-{{/if}}
+  {{#if details.registered_country}}
+    <span class="p-key">Registered Country:</span>
+    <span class="p-value">{{details.registered_country.names.en}}</span>
+  {{/if}}
 
+  {{#if details.asn}}
+    <div>
+      <span class="p-key">Org: </span>
+      <span class="p-value words">{{details.asn.autonomous_system_organization}}</span>
+    </div>
+    <div>
+      <span class="p-key">ASN: </span>
+      <span class="p-value">{{details.asn.autonomous_system_number}}</span>
+    </div>
+  {{/if}}
 
+  {{#if details.network}}
+    <div>
+      <span class="p-key">Network: </span>
+      <span class="p-value">{{details.network}}</span>
+    </div>
+  {{/if}}
 
-{{#if (gt block.ipAddresses.length 1)}}
-  <h1 class="p-title">{{fa-icon "network-wired" fixedWidth=true}} Addresses Recognized in Network</h1>
-  {{#each block.ipAddresses as |ip|}}
+  {{#if details.location.latitude}}
+    <div>
+      <span class="p-key">Latitude, Longitude: </span>
+      <span class="p-value">{{details.location.latitude}}, {{details.location.longitude}}</span>
+    </div>
+  {{/if}}
+
+  {{#if details.location.accuracy_radius}}
+    <div>
+      <span class="p-key">Accuracy Radius: </span>
+      <span class="p-value">{{details.location.accuracy_radius}} km</span>
+    </div>
+  {{/if}}
+
+  {{#if details.location.time_zone}}
+    <div>
+      <span class="p-key">Timezone: </span>
+      <span class="p-value">{{details.location.time_zone}}</span>
+    </div>
+  {{/if}}
+
+  {{#if details.traits.is_anonymous_proxy}}
+    <div>
+      <span class="p-key">Type: </span>
+      <span class="p-value">{{fa-icon "user-secret" fixedWidth=true class="critical-bold"}} Anonymous Proxy</span>
+    </div>
+  {{/if}}
+  {{#if details.traits.is_satellite_provider}}
+    <div>
+      <span class="p-key">Type: </span>
+      <span class="p-value">{{fa-icon "satellite-dish" fixedWidth=true class="critical-bold"}} Satellite Provider</span>
+    </div>
+  {{/if}}
+
+  {{#if (gt block.ipAddresses.length 1)}}
+    <h1 class="p-title">{{fa-icon "network-wired" fixedWidth=true}} Addresses Recognized in Network</h1>
+    {{#each block.ipAddresses as |ip|}}
       <span class="ip-tag">{{ip}}</span>
-  {{/each}}
-{{/if}}
-
-
-
+    {{/each}}
+  {{/if}}
+</div>
