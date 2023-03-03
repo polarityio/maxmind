@@ -1,6 +1,6 @@
 {
   "name": "MaxMind",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "main": "./integration.js",
   "description": "Polarity MaxMind Integration",
   "private": true,
