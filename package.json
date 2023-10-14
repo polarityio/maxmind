@@ -6,6 +6,6 @@
   "private": true,
   "dependencies": {
     "async": "^3.2.0",
-    "maxmind": "^4.3.8"
+    "maxmind": "^4.3.13"
   }
 }
