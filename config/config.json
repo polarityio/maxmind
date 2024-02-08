@@ -35,42 +35,14 @@
     "key": "",
     "passphrase": "",
     "ca": "",
-    "proxy": ""
+    "proxy": "",
+    "rejectUnauthorized": true
   },
   "settings": {
     "geoLite2CityDatabasePath": "database/GeoLite2-City.mmdb",
     "geoLite2AsnDatabasePath": "database/GeoLite2-ASN.mmdb"
   },
   "options": [
-    {
-      "key": "_integrationChannels",
-      "name": "Channels",
-      "description": "Entities from the listed channels will be sent to the integration",
-      "default": {
-        "IPv4": {
-          "enabled": true,
-          "whitelist": [],
-          "display-name": "IPv4"
-        },
-        "IPv6": {
-          "enabled": true,
-          "whitelist": [],
-          "display-name": "IPv6"
-        }
-      },
-      "type": "json",
-      "userCanEdit": true,
-      "adminOnly": false
-    },
-    {
-      "key": "_onDemand",
-      "name": "On-demand only",
-      "description": "If checked, the integration will only run when an On-demand request is made (i.e., Search my clipboard) and will not run in other modes.",
-      "default": false,
-      "type": "boolean",
-      "userCanEdit": true,
-      "adminOnly": false
-    },
     {
       "key": "countryBlacklist",
       "name": "Country Block List",
