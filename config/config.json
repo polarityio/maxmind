@@ -43,35 +43,6 @@
   },
   "options": [
     {
-      "key": "_integrationChannels",
-      "name": "Channels",
-      "description": "Entities from the listed channels will be sent to the integration",
-      "default": {
-        "IPv4": {
-          "enabled": true,
-          "whitelist": [],
-          "display-name": "IPv4"
-        },
-        "IPv6": {
-          "enabled": true,
-          "whitelist": [],
-          "display-name": "IPv6"
-        }
-      },
-      "type": "json",
-      "userCanEdit": true,
-      "adminOnly": false
-    },
-    {
-      "key": "_onDemand",
-      "name": "On-demand only",
-      "description": "If checked, the integration will only run when an On-demand request is made (i.e., Search my clipboard) and will not run in other modes.",
-      "default": false,
-      "type": "boolean",
-      "userCanEdit": true,
-      "adminOnly": false
-    },
-    {
       "key": "countryBlacklist",
       "name": "Country Block List",
       "description": "A block list of countries to hide results from (i.e., no results will be shown for selected countries).  You cannot provide both a Country Blacklist and a Country Whitelist.",
