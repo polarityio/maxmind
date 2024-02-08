@@ -35,8 +35,7 @@
     "key": "",
     "passphrase": "",
     "ca": "",
-    "proxy": "",
-    "rejectUnauthorized": true
+    "proxy": ""
   },
   "settings": {
     "geoLite2CityDatabasePath": "database/GeoLite2-City.mmdb",
