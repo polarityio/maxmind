@@ -72,6 +72,13 @@ If checked, the integration will display the state or subdivision information wh
 
 If checked, the integration will display the ASN and organization information as a summary tag
 
+### Maxmind City Database File Path
+
+A file path to pointing to the MaxMind City database file. If a relative path is provided, the path will be relative to the MaxMind integration directory on the Polarity Server. If left blank, the default value of 'database/GeoLite2-City.mmdb' will be used.
+
+### Maxmind ASN Database File Path
+A file path to pointing to the MaxMind ASN database file. If a relative path is provided, the path will be relative to the MaxMind integration directory on the Polarity Server. If left blank, the default value of 'database/GeoLite2-ASN.mmdb' will be used.
+
 ## Polarity
 
 Polarity is a memory-augmentation platform that improves and accelerates analyst decision making.  For more information about the Polarity platform please see:
