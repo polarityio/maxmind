@@ -2,9 +2,9 @@
 
 The Polarity [Maxmind](https://www.maxmind.com/) integration allows Polarity to retrieve geolocation information for IPv4 and IPv6 addresses using the MaxMind GeoIP2 or GeoLite2 databases.  
 
-You can download the free MaxMind GeoLite2 City and ASN databases directly from MaxMind at [https://dev.maxmind.com/geoip/geoip2/geolite2/](https://dev.maxmind.com/geoip/geoip2/geolite2/)
+You can download the free MaxMind GeoLite2 City and ASN databases directly from MaxMind at [https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/)
 
-We recommend downloading the latest `GeoLite2 City` database (in binary format) and `GeoLite2 ASN` database (also in binary format).  Both of these databases should be uploaded to your Polarity Server.  See Installation Instructions for more information.
+We recommend downloading the latest `GeoLite2 City` database (in binary `mmdb` format) and `GeoLite2 ASN` database (also in binary `mmdb` format).  Both of these databases should be uploaded to your Polarity Server.  See Installation Instructions for more information.
 
 | ![image](assets/overlay.png) |
 |---|
@@ -71,6 +71,13 @@ If checked, the integration will display the state or subdivision information wh
 ### Show ASN and Org Info
 
 If checked, the integration will display the ASN and organization information as a summary tag
+
+### Maxmind City Database File Path
+
+A file path to pointing to the MaxMind City database file. If a relative path is provided, the path will be relative to the MaxMind integration directory on the Polarity Server. If left blank, the default value of 'database/GeoLite2-City.mmdb' will be used.
+
+### Maxmind ASN Database File Path
+A file path to pointing to the MaxMind ASN database file. If a relative path is provided, the path will be relative to the MaxMind integration directory on the Polarity Server. If left blank, the default value of 'database/GeoLite2-ASN.mmdb' will be used.
 
 ## Polarity
 

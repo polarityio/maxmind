@@ -1,11 +1,11 @@
 {
   "name": "MaxMind",
-  "version": "3.4.3",
+  "version": "3.5.0",
   "main": "./integration.js",
   "description": "Polarity MaxMind Integration",
   "private": true,
   "dependencies": {
-    "async": "^3.2.5",
-    "maxmind": "^4.3.18"
+    "async": "^3.2.6",
+    "maxmind": "^4.3.23"
   }
 }

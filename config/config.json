@@ -9,6 +9,10 @@
     "IPv4",
     "IPv6"
   ],
+  "dataTypes": [
+    "IPv4",
+    "IPv6"
+  ],
   "description": "Polarity integration that connects to the MaxMind GeoLite2 database.",
   "styles": [
     "./styles/maxmind.less"
@@ -36,10 +40,6 @@
     "passphrase": "",
     "ca": "",
     "proxy": ""
-  },
-  "settings": {
-    "geoLite2CityDatabasePath": "database/GeoLite2-City.mmdb",
-    "geoLite2AsnDatabasePath": "database/GeoLite2-ASN.mmdb"
   },
   "options": [
     {
@@ -2109,6 +2109,24 @@
       "type": "boolean",
       "userCanEdit": true,
       "adminOnly": false
+    },
+    {
+      "key": "pathToCityDatabase",
+      "name": "MaxMind City Database File Path",
+      "description": "A file path to pointing to the MaxMind City database file.  If a relative path is provided, the path will be relative to the MaxMind integration directory on the Polarity Server. If left blank, the default value of 'database/GeoLite2-City.mmdb' will be used.",
+      "default": "database/GeoLite2-City.mmdb",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
+    },
+    {
+      "key": "pathToAsnDatabase",
+      "name": "MaxMind ASN Database File Path",
+      "description": "A file path to pointing to the MaxMind ASN database file.  If a relative path is provided, the path will be relative to the MaxMind integration directory on the Polarity Server. If left blank, the default value of 'database/GeoLite2-ASN.mmdb' will be used.",
+      "default": "database/GeoLite2-ASN.mmdb",
+      "type": "text",
+      "userCanEdit": false,
+      "adminOnly": true
     }
   ]
 }

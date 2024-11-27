@@ -7,26 +7,49 @@ const maxmind = require('maxmind');
 let Logger;
 let cityLookup = null;
 let asnLookup = null;
+let previousCityPath = null;
+let previousAsnPath = null;
+const DEFAULT_ASN_PATH = 'database/GeoLite2-ASN.mmdb';
+const DEFAULT_CITY_PATH = 'database/GeoLite2-City.mmdb';
 
 function startup(logger) {
   Logger = logger;
+}
 
-  return async function (cb) {
-    try {
-      cityLookup = await maxmind.open(config.settings.geoLite2CityDatabasePath);
-      asnLookup = await maxmind.open(config.settings.geoLite2AsnDatabasePath);
-      cb(null);
-    } catch (error) {
-      Logger.error(error, 'Error loading maxmind databases');
-      cb(parseErrorToReadableJSON(error));
-    }
-  };
+async function maybeLoadDatabases(options) {
+  if (typeof options.pathToCityDatabase === 'string' && options.pathToCityDatabase.trim().length === 0) {
+    options.pathToCityDatabase = DEFAULT_CITY_PATH;
+  }
+
+  if (typeof options.pathToAsnDatabase === 'string' && options.pathToAsnDatabase.trim().length === 0) {
+    options.pathToAsnDatabase = DEFAULT_ASN_PATH;
+  }
+
+  if (
+    previousCityPath !== options.pathToCityDatabase ||
+    previousAsnPath !== options.pathToAsnDatabase ||
+    cityLookup === null ||
+    asnLookup === null
+  ) {
+    Logger.debug({ cityPath: options.pathToCityDatabase, asnPath: options.pathToAsnDatabase }, 'Loading maxmind database');
+    previousCityPath = options.pathToCityDatabase;
+    previousAsnPath = options.pathToAsnDatabase;
+    cityLookup = await maxmind.open(options.pathToCityDatabase);
+    asnLookup = await maxmind.open(options.pathToAsnDatabase);
+  }
 }
 
 const parseErrorToReadableJSON = (error) => JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error)));
 
-function doLookup(entities, options, cb) {
+async function doLookup(entities, options, cb) {
   let lookupResults = [];
+
+  try {
+    await maybeLoadDatabases(options);
+  } catch (dbLoadError) {
+    Logger.error({ dbLoadError }, 'Error loading maxmind database');
+    return cb(dbLoadError);
+  }
 
   Logger.trace({ entities, options }, 'doLookup');
 
