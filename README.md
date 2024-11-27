@@ -2,9 +2,9 @@
 
 The Polarity [Maxmind](https://www.maxmind.com/) integration allows Polarity to retrieve geolocation information for IPv4 and IPv6 addresses using the MaxMind GeoIP2 or GeoLite2 databases.  
 
-You can download the free MaxMind GeoLite2 City and ASN databases directly from MaxMind at [https://dev.maxmind.com/geoip/geoip2/geolite2/](https://dev.maxmind.com/geoip/geoip2/geolite2/)
+You can download the free MaxMind GeoLite2 City and ASN databases directly from MaxMind at [https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data/)
 
-We recommend downloading the latest `GeoLite2 City` database (in binary format) and `GeoLite2 ASN` database (also in binary format).  Both of these databases should be uploaded to your Polarity Server.  See Installation Instructions for more information.
+We recommend downloading the latest `GeoLite2 City` database (in binary `mmdb` format) and `GeoLite2 ASN` database (also in binary `mmdb` format).  Both of these databases should be uploaded to your Polarity Server.  See Installation Instructions for more information.
 
 | ![image](assets/overlay.png) |
 |---|
