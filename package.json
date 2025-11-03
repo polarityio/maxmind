@@ -1,11 +1,19 @@
 {
-  "name": "MaxMind",
-  "version": "3.5.0",
-  "main": "./integration.js",
+  "name": "MaxMind-TS",
+  "version": "development",
+  "main": "dist/integration.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --coverageReporters=\"text-summary\""
+  },
   "description": "Polarity MaxMind Integration",
   "private": true,
   "dependencies": {
-    "async": "^3.2.6",
-    "maxmind": "^4.3.23"
+    "maxmind": "^4.3.23",
+    "polarity-integration-utils": "file:../polarity-integration-utils/polarity-integration-utils-2.0.9.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "typescript": "^5.9.3"
   }
 }

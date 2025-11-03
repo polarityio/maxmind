@@ -32,3 +32,4 @@ node_modules/
 # Ignored VsCode Project Info
 *.history
 *.vscode
+dist
