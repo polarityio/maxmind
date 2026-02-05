@@ -1,0 +1,135 @@
+{
+  "root": {
+    "path": "",
+    "on_null": "return_empty"
+  },
+  "pipeline": [
+    {
+      "op": "copy",
+      "from": "city",
+      "to": "reduced_results.city"
+    },
+    {
+      "op": "copy",
+      "from": "country",
+      "to": "reduced_results.country"
+    },
+    {
+      "op": "copy",
+      "from": "continent",
+      "to": "reduced_results.continent"
+    },
+    {
+      "op": "copy",
+      "from": "registered_country",
+      "to": "reduced_results.isp_registered_country"
+    },
+    {
+      "op": "copy",
+      "from": "postal",
+      "to": "reduced_results.postal"
+    },
+    {
+      "op": "copy",
+      "from": "subdivisions",
+      "to": "reduced_results.subdivisions"
+    },
+    {
+      "op": "copy",
+      "from": "asn",
+      "to": "reduced_results.asn"
+    },
+    {
+      "op": "copy",
+      "from": "network",
+      "to": "reduced_results.network"
+    },
+    {
+      "op": "copy",
+      "from": "traits",
+      "to": "reduced_results.traits"
+    },
+    {
+      "op": "copy",
+      "from": "mostSpecificSubdivision",
+      "to": "reduced_results.mostSpecificSubdivision"
+    },
+    {
+      "op": "transform",
+      "path": "reduced_results.city.name",
+      "function": "extract",
+      "field": "names.en"
+    },
+    {
+      "op": "drop",
+      "paths": ["reduced_results.city.names"]
+    },
+    {
+      "op": "transform",
+      "path": "reduced_results.country.name",
+      "function": "extract",
+      "field": "names.en"
+    },
+    {
+      "op": "drop",
+      "paths": [
+        "reduced_results.country.names",
+        "reduced_results.country.iso_code"
+      ]
+    },
+    {
+      "op": "transform",
+      "path": "reduced_results.continent.name",
+      "function": "extract",
+      "field": "names.en"
+    },
+    {
+      "op": "drop",
+      "paths": [
+        "reduced_results.continent.names",
+        "reduced_results.continent.code"
+      ]
+    },
+    {
+      "op": "transform",
+      "path": "reduced_results.isp_registered_country.name",
+      "function": "extract",
+      "field": "names.en"
+    },
+    {
+      "op": "drop",
+      "paths": [
+        "reduced_results.isp_registered_country.names",
+        "reduced_results.isp_registered_country.iso_code"
+      ]
+    },
+    {
+      "op": "transform",
+      "path": "reduced_results.postal_code",
+      "function": "extract",
+      "field": "postal.code"
+    },
+    {
+      "op": "drop",
+      "paths": ["reduced_results.postal"]
+    },
+    {
+      "op": "transform",
+      "path": "reduced_results.subdivisions[].name",
+      "function": "extract",
+      "field": "names.en"
+    },
+    {
+      "op": "drop",
+      "paths": ["reduced_results.subdivisions[].names"]
+    },
+    {
+      "op": "prune",
+      "strategy": "empty_values",
+      "target": "reduced_results"
+    }
+  ],
+  "output": {
+    "result": "$working.reduced_results"
+  }
+}
